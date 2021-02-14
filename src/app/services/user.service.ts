@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { TokenPayload } from './authentication.service';
 import { User } from '../models/user';
 
 @Injectable({
@@ -14,6 +15,10 @@ export class UserService {
 
   public getUsers(): Observable<User[]> {
     return this.httpClient.get<User[]>(this.API_URL + '/all');
+  }
+
+  public addUser(user: TokenPayload): Observable<any> {
+    return this.httpClient.post(this.API_URL + '/add', user);
   }
 /*
   public getDeloviByKataloski(searchKataloski: string): Observable<Deo[]> {
