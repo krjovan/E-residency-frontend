@@ -12,39 +12,45 @@ import { ToastrService } from 'ngx-toastr';
 export class UsersComponent implements OnInit {
 
   selectedUser: User = {
-    email:'',
-    name:'',
-    hash:'',
-    role:'',
-    salt:''
+    email: '',
+    name: '',
+    hash: '',
+    role: '',
+    salt: ''
   }
-  users : User[] = [];
+  users: User[] = [];
   firstName: '';
   lastName: '';
   confirmationPassword: '';
-
   credentials: TokenPayload = {
-    name:'',
+    name: '',
     email: '',
     password: '',
     role: ''
   };
+  currentPage = 0;
+  currnetLimit = 8;
+  numberOfPages = 0;
 
   constructor(private userService: UserService, private toastr: ToastrService) { }
 
-  getUsers(){
-    this.userService.getUsers()
-      .subscribe( users => {
+  getUsers() {
+    this.userService.getUsersWithPagination(this.currentPage, this.currnetLimit)
+      .subscribe(users => {
         this.users = users;
+      });
+    this.userService.getUsersCount()
+      .subscribe(res => {
+        this.numberOfPages = Math.ceil(res.numberOfUsers / this.currnetLimit);
       });
   }
 
-  addUser(){
+  addUser() {
     if (this.credentials.password === this.confirmationPassword) {
       this.credentials.name = this.firstName + ' ' + this.lastName;
       this.userService.addUser(this.credentials).subscribe(() => {
         this.toastr.success('You successfully added a user!', 'Success');
-        document.getElementById('id01').style.display='none'
+        document.getElementById('id01').style.display = 'none'
         this.clearDialog();
         this.getUsers();
       }, (err) => {
@@ -55,10 +61,10 @@ export class UsersComponent implements OnInit {
     }
   }
 
-  updateUser(){
+  updateUser() {
     this.userService.updateUser(this.selectedUser)
-      .subscribe( data=>{
-        document.getElementById('id02').style.display='none';
+      .subscribe(data => {
+        document.getElementById('id02').style.display = 'none';
         this.toastr.success('You successfully updated this user!', 'Success');
         this.getUsers();
       }, (err) => {
@@ -66,15 +72,15 @@ export class UsersComponent implements OnInit {
       });
   }
 
-  deleteUser(){
+  deleteUser() {
     this.userService.deleteUser(this.selectedUser._id)
-      .subscribe( data=>{
-        document.getElementById('id03').style.display='none';
+      .subscribe(data => {
+        document.getElementById('id03').style.display = 'none';
         this.toastr.success('You successfully deleted this user!', 'Success');
-        if(data.n == 1){
-          for(var i=0;i<this.users.length;i++){
-            if(this.selectedUser._id == this.users[i]._id){
-              this.users.splice(i,1);
+        if (data.n == 1) {
+          for (var i = 0; i < this.users.length; i++) {
+            if (this.selectedUser._id == this.users[i]._id) {
+              this.users.splice(i, 1);
             }
           }
         }
@@ -86,7 +92,7 @@ export class UsersComponent implements OnInit {
   resetPassword() {
     this.userService.resetPassword(this.selectedUser).subscribe(() => {
       this.toastr.success('You successfully reset the password for user!', 'Success');
-      document.getElementById('id02').style.display='none';
+      document.getElementById('id02').style.display = 'none';
     }, (err) => {
       this.toastr.error(err.error.message, 'Error');
     });
@@ -94,12 +100,12 @@ export class UsersComponent implements OnInit {
 
 
   selectUser(option, user) {
-    if(user != null && option != null) {
+    if (user != null && option != null) {
       this.selectedUser = user;
       if (option === 2) {
-        document.getElementById('id02').style.display='block'
+        document.getElementById('id02').style.display = 'block'
       } else if (option === 3) {
-        document.getElementById('id03').style.display='block';
+        document.getElementById('id03').style.display = 'block';
       } else {
         console.log("Something unexpected hapend!");
       }
@@ -114,6 +120,38 @@ export class UsersComponent implements OnInit {
     this.credentials.name = '';
     this.credentials.password = '';
     this.credentials.role = '';
+  }
+
+  nextPage() {
+    if (this.currentPage >= this.numberOfPages - 1) {
+      this.toastr.error('No next page!', 'Error');
+      return;
+    }
+    ++this.currentPage;
+    this.getUsers();
+  }
+
+  previousPage() {
+    if (this.currentPage <= 0) {
+      this.toastr.error('No previous page!', 'Error');
+      return;
+    }
+    --this.currentPage;
+    this.getUsers();
+  }
+
+  jumpToPage(event) {
+    if (event.target.value >= 1 && event.target.value <= this.numberOfPages) {
+      this.currentPage = event.target.value - 1;
+      this.getUsers();
+    } else {
+      this.toastr.error('This page does not exist!', 'Error');
+    }
+  }
+
+  onLimitChange(value) {
+    this.currentPage = 0;
+    this.getUsers();
   }
 
   ngOnInit() {
