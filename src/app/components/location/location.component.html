@@ -1,0 +1,184 @@
+<div class="w3-container w3-center">
+
+  <div id="id01" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4">
+      <header class="w3-container w3-blue">
+        <span class="w3-button w3-display-topleft" (click)="clearDialog()">Clear
+          <i class="fa fa-eraser"></i>
+        </span>
+        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <h2>New location form</h2>
+      </header>
+      <div class="w3-container">
+
+        <form class="w3-container" #formControl="ngForm">
+          <p>
+            <label class="w3-text-blue">
+              <b>Country</b>
+            </label>
+            <input required [(ngModel)]="location.country" minlength="2" maxlength="40" name="first" type="text" style="text-align: center;"
+              class="w3-input w3-border w3-light-grey">
+          </p>
+          <p>
+            <label class="w3-text-blue">
+              <b>City</b>
+            </label>
+            <input required [(ngModel)]="location.city" minlength="2" maxlength="40" name="last" type="text" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+          </p>
+          <p>
+            <label class="w3-text-blue">
+              <b>Street</b>
+            </label>
+            <input required [(ngModel)]="location.street" minlength="2" maxlength="40" name="last" type="text" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+          </p>
+          <p>
+            <label class="w3-text-blue">
+              <b>Street number</b>
+            </label>
+            <input required [(ngModel)]="location.street_number" name="street_number" type="text" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+          </p>
+          <p>
+            <label class="w3-text-blue">
+              <b>Contact email</b>
+            </label>
+            <input required [(ngModel)]="location.contact_email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" minlength="1" maxlength="40"
+              name="email" type="text" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+          </p>
+
+          <p class="w3-center">
+            <button [disabled]="!formControl.valid" (click)="addLocation()" class="w3-btn w3-green">Create
+              <i class="fa fa-check"></i>
+            </button>
+          </p>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="w3-container w3-center">
+
+  <div id="id02" class="w3-modal">
+    <div class="w3-modal-content w3-animate-top w3-card-4">
+      <header class="w3-container w3-blue">
+        <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        <h2>Update location form</h2>
+      </header>
+      <div class="w3-container">
+        <form class="w3-container" #formControlEdit="ngForm">
+          <p>
+            <label class="w3-text-blue">
+              <b>Country</b>
+            </label>
+            <input required [(ngModel)]="selectedLocation.country" minlength="2" maxlength="40" name="first" type="text" style="text-align: center;"
+              class="w3-input w3-border w3-light-grey">
+          </p>
+          <p>
+            <label class="w3-text-blue">
+              <b>City</b>
+            </label>
+            <input required [(ngModel)]="selectedLocation.city" minlength="2" maxlength="40" name="last" type="text" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+          </p>
+          <p>
+            <label class="w3-text-blue">
+              <b>Street</b>
+            </label>
+            <input required [(ngModel)]="selectedLocation.street" minlength="2" maxlength="40" name="last" type="text" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+          </p>
+          <p>
+            <label class="w3-text-blue">
+              <b>Street number</b>
+            </label>
+            <input required [(ngModel)]="selectedLocation.street_number" name="street_number" type="text" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+          </p>
+          <p>
+            <label class="w3-text-blue">
+              <b>Contact email</b>
+            </label>
+            <input required [(ngModel)]="selectedLocation.contact_email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" minlength="1" maxlength="40"
+              name="email" type="text" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+          </p>
+
+          <p class="w3-center">
+            <button [disabled]="!formControlEdit.valid" (click)="updateLocation()" class="w3-btn w3-blue">Update
+              <i class="fa fa-check"></i>
+            </button>
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div id="id03" class="modal">
+  <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span>
+  <form class="modal-content">
+    <div class="container">
+      <h1>Delete Location</h1>
+      <p>Country: {{selectedLocation?.country}}</p>
+      <p>City: {{selectedLocation?.city}}</p>
+      <p>Street: {{selectedLocation?.street}}</p>
+      <p>Street number: {{selectedLocation?.street_number}}</p>
+      <p>Contact email: {{selectedLocation?.contact_email}}</p>
+      <p>Are you sure you want to delete this location?</p>
+
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">Cancel</button>
+        <button type="button" (click)="deletelocation()" class="deletebtn">Delete</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="search-container w3-center w3-padding">
+  <input [(ngModel)]="search" type="text" placeholder="Search by country" name="search">
+  <button (click)="getLocations()" style="margin-right: 15pt;" class="w3-button">
+    <i class="fa fa-search"></i>
+  </button>
+  <button class="w3-button w3-green" onclick="document.getElementById('id01').style.display='block'">
+    <i class="fa fa-map-marker fa-fw"></i>
+    <i class="fa fa-plus"></i>
+  </button>
+</div>
+
+<div>
+  <div class="row">
+    <div class="column w3-card w3-hover-blue" *ngFor="let location of locations">
+      <h3 style="text-align: center">{{location.country}}</h3>
+      <p style="text-align: center">{{location.city}}</p>
+      <p style="text-align: center">{{location.street}}</p>
+      <p style="text-align: center">{{location.street_number}}</p>
+      <p style="text-align: center">{{location.contact_email}}</p>
+      <div class="w3-center w3-padding">
+        <button style="margin-right: 5pt" class="w3-button w3-black" (click)="selectlocation(2, location)">
+          <i class="fa fa-edit"></i>
+        </button>
+        <button class="w3-button w3-red" (click)="selectlocation(3, location)">
+          <i class="fa fa-trash-o"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="search===''" class="w3-center w3-padding">
+  <div class="w3-bar w3-border w3-round">
+    <button (click)="previousPage()" [disabled]="currentPage <= 0" class="w3-button">&laquo;</button>
+    <p style="display: inline; margin-left: 1vw; margin-right: 1vw;">Page {{currentPage + 1}} of {{numberOfPages}}</p>
+    <button (click)="nextPage()" [disabled]="currentPage >= numberOfPages - 1" class="w3-button">&raquo;</button>
+    <span style="margin-left: 0.5vw">Jump to </span>
+    <input style="width: 6vw; margin-right: 1vw;" type="number" (keyup.enter)="jumpToPage($event)">
+    <span style="margin-left: 0.5vw;">Per page
+      <select style="margin-right: 1vw" [(ngModel)]="currnetLimit" name="option" (ngModelChange)="onLimitChange($event)">
+        <option value="4">4</option>
+        <option value="8">8</option>
+        <option value="12">12</option>
+      </select>
+    </span>
+
+  </div>
+</div>

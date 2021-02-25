@@ -14,6 +14,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { RegisterComponent } from './components/register/register.component';
 import { UsersComponent } from './components/users/users.component';
 import { AdminAuthGuardService } from './services/admin-auth-guard.service';
+import { LocationComponent } from './components/location/location.component';
 
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'users', component: UsersComponent, canActivate: [AdminAuthGuardService] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
+  { path: 'location', component: LocationComponent, canActivate: [AdminAuthGuardService] },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
 
@@ -32,7 +34,8 @@ const routes: Routes = [
     SignInComponent,
     ProfileComponent,
     RegisterComponent,
-    UsersComponent
+    UsersComponent,
+    LocationComponent
   ],
   imports: [
     BrowserModule,
