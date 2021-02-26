@@ -15,9 +15,66 @@
         <label class="w3-text-blue">
           <b>Motivation</b>
         </label>
-        <input required [(ngModel)]="applcation.motivation" minlength="2" maxlength="40" name="last" type="text" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+        <textarea  required [(ngModel)]="applcation.motivation" minlength="2" maxlength="800" name="last" type="text" style="width: 100%; min-width: 100%; max-width: 100%;" class="w3-input w3-border w3-light-grey"></textarea>
       </p>
 
+      <fieldset>
+      <legend>Applicant information</legend>
+      <p>
+        <label class="w3-text-blue">
+          <b>Given name</b>
+        </label>
+        <input required [(ngModel)]="details.given_name" minlength="2" maxlength="40" name="given_name" type="text" style="text-align: center;"
+          class="w3-input w3-border w3-light-grey">
+      </p>
+      <p>
+        <label class="w3-text-blue">
+          <b>Surname</b>
+        </label>
+        <input required [(ngModel)]="details.surname" minlength="2" maxlength="40" name="surname" type="text" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+      </p>
+      <p>
+        <label class="w3-text-blue">
+          <b>Country of birth</b>
+        </label>
+        <input required [(ngModel)]="details.country_of_birth" minlength="2" maxlength="40" name="country_of_birth" type="text" style="text-align: center;"
+          class="w3-input w3-border w3-light-grey">
+      </p>
+      <p>
+        <label class="w3-text-blue">
+          <b>Citizenship</b>
+        </label>
+        <input required [(ngModel)]="details.citizenship" minlength="2" maxlength="40" name="citizenship" type="text" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+      </p>
+      <p>
+        <label class="w3-text-blue">
+          <b>Date of birth</b>
+        </label>
+        <input required [(ngModel)]="details.date_of_birth" minlength="2" maxlength="40" name="date_of_birth" type="date" style="text-align: center;"
+          class="w3-input w3-border w3-light-grey">
+      </p>
+      <p>
+        <label class="w3-text-blue">
+          <b>Sex</b>
+        </label>
+        <input required [(ngModel)]="details.sex" minlength="2" maxlength="40" name="last" type="sex" style="text-align: center;" class="w3-input w3-border w3-light-grey">
+      </p>
+      <p>
+        <label class="w3-text-blue">
+          <b>Personal identification code</b>
+        </label>
+        <input required [(ngModel)]="details.personal_identification_code" minlength="2" maxlength="40" name="personal_identification_code" type="text" style="text-align: center;"
+          class="w3-input w3-border w3-light-grey">
+      </p>
+      <p>
+        <label class="w3-text-blue">
+          <b>Pick-up location</b>
+        </label>
+        <select [(ngModel)]="details.pick_up_location_id" required style="text-align: center;" class="w3-center w3-input w3-border w3-light-grey w3-select w3-border" name="option">
+          <option [ngValue]="location._id" *ngFor="let location of locations">{{location.country + ', ' + location.city + ', ' + location.street + ', ' + location.street_number}}</option>
+        </select>
+      </p>
+    </fieldset>
 
       <p class="w3-center">
         <button [disabled]="!formControl.valid" (click)="addApplication()" class="w3-btn w3-blue">Send application</button>
