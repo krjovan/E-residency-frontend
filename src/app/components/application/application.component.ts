@@ -8,6 +8,7 @@ import { LocationService } from '../../services/location-service/location.servic
 import { Location } from '../../models/location';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { DetailsService } from '../../services/details-service/details.service';
 
 @Component({
   selector: 'app-application',
@@ -44,7 +45,7 @@ export class ApplicationComponent implements OnInit {
     private auth: AuthenticationService,
     private locationService: LocationService,
     private formBuilder: FormBuilder,
-    private http: HttpClient
+    private detailsService: DetailsService
   ) { }
 
   addApplication() {
@@ -58,7 +59,6 @@ export class ApplicationComponent implements OnInit {
         this.details.application_id = res.application_id;
         const formData = new FormData();
         formData.append('uploadedImage', this.fileUploadForm.get('uploadedImage').value);
-        formData.append('agentId', '007');
         formData.append('given_name', this.details.given_name.toString());
         formData.append('surname', this.details.surname.toString());
         formData.append('country_of_birth', this.details.country_of_birth.toString());
@@ -69,18 +69,15 @@ export class ApplicationComponent implements OnInit {
         formData.append('pick_up_location_id', this.details.pick_up_location_id.toString());
         formData.append('application_id', this.details.application_id.toString());
 
-        this.http.post<any>('http://localhost:8080/uploadfile', formData).subscribe(response => {
-          console.log(response);
-          if (response.statusCode === 200) {
-            // Reset the file input
+        this.detailsService.addDetails(formData).subscribe({
+          next: res => {
+            this.toastr.success('You successfully sent your application!', 'Success');
             this.uploadFileInput.nativeElement.value = "";
             this.fileInputLabel = undefined;
+          }, error: err => {
+            console.log(err);
           }
-        }, er => {
-          console.log(er);
-          alert(er.error.error);
         });
-
       }, error: err => {
         console.log(err);
       }
