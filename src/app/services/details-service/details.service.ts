@@ -14,4 +14,8 @@ export class DetailsService {
   public addDetails(details: any): Observable<any> {
     return this.httpClient.post(this.API_URL + '/add', details);
   }
+
+  public getApplicationDetailsById(application_id: String): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL + '/getApplicationDetailsById/' + application_id);
+  }
 }

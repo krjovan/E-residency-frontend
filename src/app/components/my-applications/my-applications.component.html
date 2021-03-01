@@ -1,7 +1,7 @@
 <div style="overflow-x:auto;" class="w3-padding w3-container">
   <h3 class="w3-center">My applications</h3>
 
-  <table class="w3-table-all w3-card-4" id="applications">
+  <table style="margin-bottom: 3vw;" class="w3-table-all w3-card-4" id="applications">
     <tr class="w3-blue">
       <th class="w3-center">Type of application</th>
       <th class="w3-center">Date</th>
@@ -30,6 +30,17 @@
           <h2>Application details</h2>
         </header>
         <div class="w3-container">
+            <div><a target="_blank" [href]="details.photo_code"><img [src]="details.photo_code" alt=""></a></div>
+          <p>{{selectedApplication.type_of_application}}</p>
+          <p>{{selectedApplication.datetime_of_application}}</p>
+          <p>{{selectedApplication.motivation}}</p>
+          <p>{{details.citizenship}}</p>
+          <p>{{details.country_of_birth}}</p>
+          <p>{{details.date_of_birth}}</p>
+          <p>{{details.given_name}}</p>
+          <p>{{details.personal_identification_code}}</p>
+          <p>{{details.surname}}</p>
+          <p><i class="fa fa-map-marker" style="margin-right: 0.5vw;"> </i>{{details.location.country + ', ' + details.location.city}}</p>
 
 
         </div>

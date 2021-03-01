@@ -47,7 +47,18 @@
   cursor: pointer;
 }
 
+img {
+  float: right;
+  width:  100px;
+  height: 150px;
+  object-fit: cover;
+}
 
+img:hover {
+  opacity: 0.9;
+  border: double;
+  border-color: aquamarine;
+}
 
 
 
