@@ -96,20 +96,46 @@
                         <li>{{details.surname}}</li>
                         <li>{{details.country_of_birth}}</li>
                         <li>{{details.citizenship}}</li>
-                        <li>{{details.sex}}</li>
+                        <li *ngIf="details.sex == 'm'">Male</li>
+                        <li *ngIf="details.sex == 'f'">Female</li>
                         <li>{{details.personal_identification_code}}</li>
                         <li class="last">{{details.date_of_birth | date: 'dd.MM.yyyy.'}}</li>
                       </ul>
                     </div>
                   </div>
 
-                  <div class="yui-gf last">
+                  <div class="yui-gf">
                     <div class="yui-u first">
                       <h3 style="font-size: 1.2em;"><b><i style="margin-right: 5px;" class="fa fa-map-marker"></i>Pick-up location</b></h3>
                     </div>
                     <div class="yui-u">
                       <h2>{{ details.location.country + ", " + details.location.city }}</h2>
                       <h3>{{ details.location.street + " " + details.location.street_number}}</h3>
+                    </div>
+                  </div>
+
+                  <div class="yui-gf last">
+                    <div class="yui-u first">
+                      <h3 style="font-size: 1.2em;"><b>Application status</b></h3>
+                    </div>
+                    <div class="yui-u">
+
+                      <table style="border: 1px solid rgb(64 64 64); margin-bottom: 3vw;" class="w3-table-all" id="applications">
+                        <tr class="w3-grey">
+                          <th class="w3-center">Status</th>
+                          <th class="w3-center">Date</th>
+                          <th class="w3-center">Time</th>
+                        </tr>
+                        <tr *ngFor="let status of statuses">
+                          <td class="w3-center">{{status.status.status_type | uppercase}}</td>
+                          <td class="w3-center">{{ status.datetime_status_change | date: 'dd.MM.yyyy.' }}</td>
+                          <td class="w3-center">{{status.datetime_status_change | date: 'HH.mm'}} h</td>
+                        </tr>
+                      </table>
+
+
+
+
                     </div>
                   </div>
 

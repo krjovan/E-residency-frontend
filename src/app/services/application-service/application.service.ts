@@ -22,22 +22,10 @@ export class ApplicationService {
   public getUserApplications(): Observable<Application[]> {
     return this.httpClient.get<Application[]>(this.API_URL + '/userApplications/' + this.auth.getUserDetails()._id);
   }
-/*
-  public getApplicationsWithPagination(page, limit): Observable<Application[]> {
-    return this.httpClient.get<Application[]>(this.API_URL + '/withPagination?page=' + page + '&limit=' + limit);
-  }
-
-  public getApplicationsCount(): Observable<any> {
-    return this.httpClient.get<any>(this.API_URL + '/numberOfLocations');
-  }*/
 
   public addApplication(application: Application): Observable<any> {
     return this.httpClient.post(this.API_URL + '/add', application);
   }
-
-  /*public updateApplication(location: Application): Observable<any> {
-    return this.httpClient.put(this.API_URL + '/update/' + location._id, location);
-  }*/
 
   public deleteApplication(id): Observable<any> {
     return this.httpClient.delete(this.API_URL + '/delete/' + id);

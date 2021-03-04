@@ -4,6 +4,8 @@ import { Application } from '../../models/application';
 import { DetailsService } from '../../services/details-service/details.service';
 import { Details } from '../../models/details';
 import { Location } from '../../models/location';
+import { ApplicationStatusService } from '../../services/application-status-service/application-status.service';
+import { Status } from '../../models/status';
 
 @Component({
   selector: 'app-my-applications',
@@ -32,16 +34,26 @@ export class MyApplicationsComponent implements OnInit {
     location: Location
   }
 
+  statuses: any [] = [];
+
 
   constructor(private applicationService: ApplicationService,
-              private detailsService: DetailsService) { }
+              private detailsService: DetailsService,
+              private applicationStatusService: ApplicationStatusService) { }
 
   viewDetails(application) {
     this.selectedApplication = application;
     this.detailsService.getApplicationDetailsById(this.selectedApplication._id).subscribe({
       next: applicationDetails => {
         this.details = applicationDetails;
-        document.getElementById('id01').style.display='block';
+        this.applicationStatusService.getApplicationDetailsById(this.selectedApplication._id).subscribe({
+          next: applicationStatus => {
+            this.statuses = applicationStatus;
+            document.getElementById('id01').style.display='block';
+          }, error: err => {
+            console.log(err);
+          }});
+
       }, error: err => {
         console.log(err);
       }
