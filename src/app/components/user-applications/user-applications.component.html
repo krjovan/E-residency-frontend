@@ -1,0 +1,189 @@
+<div style="overflow-x:auto;" class="w3-padding w3-container">
+  <div style="display: table; margin-left: auto; margin-right: auto; margin-bottom: 10px;">
+
+  <div style="display: table-cell; font-size: 2em;" class="w3-center">Applications - Type</div>
+  <div>
+  <select [(ngModel)]="status_type" (ngModelChange)="onStatusTypeChange()" style="margin-left:10px; display: table-cell; text-align: center;" class="w3-center w3-input w3-border w3-light-grey w3-select w3-border" name="option">
+    <option value="submitted"> SUBMITTED</option>
+    <option value="processing"> PROCESSING</option>
+    <option value="accepted"> ACCEPTED</option>
+    <option value="rejected"> REJECTED</option>
+  </select>
+</div>
+
+</div>
+
+
+
+  <table style="margin-bottom: 3vw;" class="w3-table-all w3-card-4" id="applications">
+    <tr class="w3-blue">
+      <th class="w3-center">Type of application</th>
+      <th class="w3-center">Submit Date</th>
+      <th class="w3-center">Submit Time</th>
+      <th class="w3-center">Details</th>
+    </tr>
+    <tr *ngFor="let application of applications">
+      <td class="w3-center">{{application.application.type_of_application}}</td>
+      <td class="w3-center">{{application.application.datetime_of_application | date: 'dd.MM.yyyy.'}}</td>
+      <td class="w3-center">{{application.application.datetime_of_application | date: 'HH:mm'}} h</td>
+      <td class="w3-center">
+        <div class="w3-center">
+          <button style="width: 70px; height: 30px;" (click)="viewDetails(application)" class="w3-btn w3-blue">View
+            <i class="fa fa-search"></i>
+          </button>
+        </div>
+      </td>
+    </tr>
+  </table>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div id="id01" class="w3-modal">
+
+  <div id="doc2" class="yui-t7">
+    <p style="max-width: 2vw; margin-top: 1vw; margin-right: 1vw;" class="w3-right w3-container w3-red">
+      <span onclick="document.getElementById('id01').style.display='none'" class="w3-button">&times;</span>
+    </p>
+    <div id="inner">
+
+      <div id="hd">
+        <div class="yui-gc">
+          <div class="yui-u first">
+            <h1>{{details.given_name + ' ' + details.surname}}</h1>
+          </div>
+
+          <div class="yui-u">
+            <div class="contact-info">
+              <h3 style="font-size: 35px;">{{details.personal_identification_code}}</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="bd">
+        <div id="yui-main">
+          <div class="yui-b">
+            <div class="yui-gf">
+              <div class="yui-u first">
+                <h3 style="font-size: 1.2em;">
+                  <b>Application information</b>
+                </h3>
+                <p style="margin-top: 20px;">
+                  <b>Type of application:</b> {{selectedApplication.type_of_application}}</p>
+                <p style="margin-top: 10px;">
+                  <b>Submit date:</b> {{selectedApplication.datetime_of_application | date: 'dd.MM.yyyy.'}}</p>
+                <p style="margin-top: 10px;">
+                  <b>Submit time:</b> {{selectedApplication.datetime_of_application | date: 'HH:mm'}} h</p>
+              </div>
+              <div class="yui-u">
+                <div>
+                  <a target="_blank" [href]="details.photo_code">
+                    <img style="margin-left: 25px;" [src]="details.photo_code">
+                  </a>
+                </div>
+                <h3 style="font-size: 1.2em;">
+                  <b>Motivation for e-residency program</b>
+                </h3>
+                <p style="text-align: justify; text-justify: inter-word; margin-top: 20px;">{{selectedApplication.motivation}}</p>
+              </div>
+            </div>
+
+            <div class="yui-gf">
+              <div class="yui-u first">
+                <h3 style="font-size: 1.2em;">
+                  <b>Applicant information</b>
+                </h3>
+              </div>
+              <div class="yui-u">
+                <ul class="talent">
+                  <li>Given name</li>
+                  <li>Surname</li>
+                  <li>Country of birth</li>
+                  <li>Citizenship</li>
+                  <li>Sex</li>
+                  <li>Personal identification code</li>
+                  <li class="last">Date of birth</li>
+                </ul>
+
+                <ul class="talent">
+                  <li> - </li>
+                  <li> - </li>
+                  <li> - </li>
+                  <li> - </li>
+                  <li> - </li>
+                  <li> - </li>
+                  <li class="last"> - </li>
+                </ul>
+
+                <ul class="talent">
+                  <li>{{details.given_name}}</li>
+                  <li>{{details.surname}}</li>
+                  <li>{{details.country_of_birth}}</li>
+                  <li>{{details.citizenship}}</li>
+                  <li *ngIf="details.sex == 'm'">Male</li>
+                  <li *ngIf="details.sex == 'f'">Female</li>
+                  <li>{{details.personal_identification_code}}</li>
+                  <li class="last">{{details.date_of_birth | date: 'dd.MM.yyyy.'}}</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="yui-gf">
+              <div class="yui-u first">
+                <h3 style="font-size: 1.2em;">
+                  <b>
+                    <i style="margin-right: 5px;" class="fa fa-map-marker"></i>Pick-up location</b>
+                </h3>
+              </div>
+              <div class="yui-u">
+                <h2>{{ details.location.country + ", " + details.location.city }}</h2>
+                <h3>{{ details.location.street + " " + details.location.street_number}}</h3>
+              </div>
+            </div>
+
+            <div class="yui-gf last">
+              <div class="yui-u first">
+                <h3 style="font-size: 1.2em;">
+                  <b>Application status</b>
+                </h3>
+              </div>
+              <div class="yui-u">
+
+                <table style="border: 1px solid rgb(64 64 64); margin-bottom: 3vw;" class="w3-table-all" id="applications">
+                  <tr class="w3-grey">
+                    <th class="w3-center">Status</th>
+                    <th class="w3-center">Date</th>
+                    <th class="w3-center">Time</th>
+                  </tr>
+                  <tr *ngFor="let status of statuses">
+                    <td class="w3-center">{{status.status.status_type | uppercase}}</td>
+                    <td class="w3-center">{{ status.datetime_status_change | date: 'dd.MM.yyyy.' }}</td>
+                    <td class="w3-center">{{status.datetime_status_change | date: 'HH.mm'}} h</td>
+                  </tr>
+                </table>
+
+
+
+
+              </div>
+            </div>
+
+
+            <div id="ft">
+              <p>E-residency team &mdash;
+                <a href="mailto:contact@e-residency.com">contact@e-residency.com</a> &mdash; (381)-011-5309853</p>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>

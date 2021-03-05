@@ -15,4 +15,18 @@ export class ApplicationStatusService {
   public getApplicationDetailsById(application_id: String): Observable<any> {
     return this.httpClient.get<any>(this.API_URL + '/getStatusByApplicationId/' + application_id);
   }
+
+  public getSubmittedApplications(): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL + '/getSubmittedApplications');
+  }
+
+  public getProcessingApplications(): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL + '/getProcessingApplications');
+  }
+
+  public getApplicationsByStatusType(req): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL + '/getApplicationsByStatusType/?status_type=' +  req.status_type);
+  }
+
+
 }

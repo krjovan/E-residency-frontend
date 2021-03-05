@@ -17,6 +17,7 @@ import { AdminAuthGuardService } from './services/admin-auth-guard.service';
 import { LocationComponent } from './components/location/location.component';
 import { ApplicationComponent } from './components/application/application.component';
 import { MyApplicationsComponent } from './components/my-applications/my-applications.component';
+import { UserApplicationsComponent } from './components/user-applications/user-applications.component';
 
 
 const routes: Routes = [
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'sign-in', component: SignInComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'users', component: UsersComponent, canActivate: [AdminAuthGuardService] },
+  { path: 'applications', component: UserApplicationsComponent , canActivate: [AdminAuthGuardService] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
   { path: 'my-applications', component: MyApplicationsComponent, canActivate: [AuthGuardService] },
   { path: 'application', component: ApplicationComponent, canActivate: [AuthGuardService] },
@@ -41,7 +43,8 @@ const routes: Routes = [
     UsersComponent,
     LocationComponent,
     ApplicationComponent,
-    MyApplicationsComponent
+    MyApplicationsComponent,
+    UserApplicationsComponent
   ],
   imports: [
     BrowserModule,
