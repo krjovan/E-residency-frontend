@@ -3,6 +3,7 @@ import { ApplicationStatusService } from '../../services/application-status-serv
 import { Application } from '../../models/application';
 import { Location } from '../../models/location';
 import { DetailsService } from '../../services/details-service/details.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-applications',
@@ -36,8 +37,11 @@ export class UserApplicationsComponent implements OnInit {
 
   status_type = 'submitted';
 
+  chosen_status_type = '';
+
   constructor(private applicationStatusService: ApplicationStatusService,
-              private detailsService: DetailsService) { }
+              private detailsService: DetailsService,
+              private toastr: ToastrService) { }
 
   viewDetails(application) {
     this.selectedApplication = application.application;
@@ -100,6 +104,38 @@ export class UserApplicationsComponent implements OnInit {
     } else {
       console.log('Something unexpected happend!');
     }
+  }
+
+  actionChosen(application, status_type) {
+    this.chosen_status_type = status_type;
+    this.selectedApplication = application.application;
+    this.detailsService.getApplicationDetailsById(this.selectedApplication._id).subscribe({
+      next: applicationDetails => {
+        this.details = applicationDetails;
+        this.applicationStatusService.getApplicationDetailsById(this.selectedApplication._id).subscribe({
+          next: applicationStatus => {
+            this.statuses = applicationStatus;
+            document.getElementById('id03').style.display='block';
+          }, error: err => {
+            console.log(err);
+          }});
+
+      }, error: err => {
+        console.log(err);
+      }
+    });
+  }
+
+  changeStatus() {
+    this.applicationStatusService.changeApplicationStatus(this.selectedApplication._id, this.chosen_status_type).subscribe({
+      next: res => {
+        document.getElementById('id03').style.display='none';
+        this.toastr.success('You successfully changed the application status!', 'Success');
+        this.getApplications();
+      }, error: err => {
+        console.log(err);
+      }
+    });
   }
 
   ngOnInit(): void {

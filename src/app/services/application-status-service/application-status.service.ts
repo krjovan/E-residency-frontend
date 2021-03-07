@@ -28,5 +28,12 @@ export class ApplicationStatusService {
     return this.httpClient.get<any>(this.API_URL + '/getApplicationsByStatusType/?status_type=' +  req.status_type);
   }
 
+  public changeApplicationStatus(app_id, stat_type): Observable<any> {
+    let req = {
+      application_id: app_id,
+      status_type: stat_type
+    }
+    return this.httpClient.post(this.API_URL + '/add', req);
+  }
 
 }

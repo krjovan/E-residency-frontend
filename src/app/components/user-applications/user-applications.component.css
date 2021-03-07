@@ -64,7 +64,7 @@ img:hover {
 
 
 /* Float cancel and delete buttons and add an equal width */
-.cancelbtn, .deletebtn {
+.cancelbtn, .yesbtn {
   float: left;
   width: 50%;
 }
@@ -85,17 +85,17 @@ img:hover {
 }
 
 /* Add a color to the delete button */
-.deletebtn {
+.yesbtn {
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   opacity: 0.9;
-  background-color: #f44336;
+  background-color: #34ca55;
   cursor: pointer;
 }
 
-.deletebtn:hover {
+.yesbtn:hover {
   opacity: 1;
 }
 
@@ -158,7 +158,7 @@ hr {
 
 /* Change styles for cancel button and delete button on extra small screens */
 @media screen and (max-width: 300px) {
-  .cancelbtn, .deletebtn {
+  .cancelbtn, .yesbtn {
      width: 100%;
   }
 }

@@ -1,17 +1,18 @@
 <div style="overflow-x:auto;" class="w3-padding w3-container">
   <div style="display: table; margin-left: auto; margin-right: auto; margin-bottom: 10px;">
 
-  <div style="display: table-cell; font-size: 2em;" class="w3-center">Applications - Type</div>
-  <div>
-  <select [(ngModel)]="status_type" (ngModelChange)="onStatusTypeChange()" style="margin-left:10px; display: table-cell; text-align: center;" class="w3-center w3-input w3-border w3-light-grey w3-select w3-border" name="option">
-    <option value="submitted"> SUBMITTED</option>
-    <option value="processing"> PROCESSING</option>
-    <option value="accepted"> ACCEPTED</option>
-    <option value="rejected"> REJECTED</option>
-  </select>
-</div>
+    <div style="display: table-cell; font-size: 2em;" class="w3-center">Applications - Type</div>
+    <div>
+      <select [(ngModel)]="status_type" (ngModelChange)="onStatusTypeChange()" style="margin-left:10px; display: table-cell; text-align: center;"
+        class="w3-center w3-input w3-border w3-light-grey w3-select w3-border" name="option">
+        <option value="submitted"> SUBMITTED</option>
+        <option value="processing"> PROCESSING</option>
+        <option value="accepted"> ACCEPTED</option>
+        <option value="rejected"> REJECTED</option>
+      </select>
+    </div>
 
-</div>
+  </div>
 
 
 
@@ -21,6 +22,7 @@
       <th class="w3-center">Submit Date</th>
       <th class="w3-center">Submit Time</th>
       <th class="w3-center">Details</th>
+      <th *ngIf="status_type === 'submitted' || status_type === 'processing'" class="w3-center">Action</th>
     </tr>
     <tr *ngFor="let application of applications">
       <td class="w3-center">{{application.application.type_of_application}}</td>
@@ -31,6 +33,17 @@
           <button style="width: 70px; height: 30px;" (click)="viewDetails(application)" class="w3-btn w3-blue">View
             <i class="fa fa-search"></i>
           </button>
+        </div>
+      </td>
+      <td *ngIf="status_type === 'submitted'" class="w3-center">
+        <div class="w3-center">
+          <button style="width: 95px; height: 30px;" (click)="actionChosen(application, 'processing')" class="w3-btn w3-green">Processing</button>
+        </div>
+      </td>
+      <td *ngIf="status_type === 'processing'" class="w3-center">
+        <div class="w3-center">
+          <button style="width: 70px; height: 30px;" (click)="actionChosen(application, 'accepted')" class="w3-btn w3-green">Accept</button>
+          <button style="width: 70px; height: 30px;" (click)="actionChosen(application, 'rejected')" class="w3-btn w3-red">Reject</button>
         </div>
       </td>
     </tr>
@@ -187,3 +200,32 @@
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div id="id03" class="modal">
+  <form class="modal-content">
+    <div class="container">
+        <p style="margin-top: 10px; margin-bottom: 10px;"><b>Are you sure you want to change the application status to {{chosen_status_type}}?</b></p>
+          <ul>
+            <li>Given name: {{details.given_name}}</li>
+            <li>Surname: {{details.surname}}</li>
+            <li>Country of birth: {{details.country_of_birth}}</li>
+            <li>Citizenship: {{details.citizenship}}</li>
+            <li *ngIf="details.sex == 'm'">Sex: Male</li>
+            <li *ngIf="details.sex == 'f'">Sex: Female</li>
+            <li>Personal identification code: {{details.personal_identification_code}}</li>
+            <li>Date of birth: {{details.date_of_birth | date: 'dd.MM.yyyy.'}}</li>
+            <li>Type of application: {{selectedApplication.type_of_application}}</li>
+            <li>Submit date: {{selectedApplication.datetime_of_application | date: 'dd.MM.yyyy.'}}</li>
+            <li>Submit time: {{selectedApplication.datetime_of_application | date: 'HH:mm'}} h</li>
+          </ul>
+
+      <div style="margin-top: 10px;" class="clearfix">
+        <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">No</button>
+        <button type="button" (click)="changeStatus()" class="yesbtn">Yes</button>
+      </div>
+    </div>
+  </form>
+</div>
