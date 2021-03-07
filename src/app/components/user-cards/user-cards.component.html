@@ -6,7 +6,7 @@
       <p style="text-align: center">{{card.expire_date}}</p>
       <p style="text-align: center">{{card.active}}</p>
       <div class="w3-center w3-padding">
-        <button *ngIf="!card.active" style="margin-right: 5pt" class="w3-button w3-black" (click)="changeCardState(1, card)">
+        <button *ngIf="!card.active" style="margin-right: 5pt" class="w3-button w3-green" (click)="changeCardState(1, card)">
           REACTIVATE
         </button>
         <button *ngIf="card.active" class="w3-button w3-red" (click)="changeCardState(2, card)">
