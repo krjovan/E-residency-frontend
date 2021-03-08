@@ -19,6 +19,7 @@ import { ApplicationComponent } from './components/application/application.compo
 import { MyApplicationsComponent } from './components/my-applications/my-applications.component';
 import { UserApplicationsComponent } from './components/user-applications/user-applications.component';
 import { UserCardsComponent } from './components/user-cards/user-cards.component';
+import { MyCardComponent } from './components/my-card/my-card.component';
 
 
 const routes: Routes = [
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'cards', component: UserCardsComponent , canActivate: [AdminAuthGuardService] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuardService] },
   { path: 'my-applications', component: MyApplicationsComponent, canActivate: [AuthGuardService] },
+  { path: 'my-card', component: MyCardComponent, canActivate: [AuthGuardService] },
   { path: 'application', component: ApplicationComponent, canActivate: [AuthGuardService] },
   { path: 'location', component: LocationComponent, canActivate: [AdminAuthGuardService] },
   { path: '**', redirectTo: '/home', pathMatch: 'full' }
@@ -47,7 +49,8 @@ const routes: Routes = [
     ApplicationComponent,
     MyApplicationsComponent,
     UserApplicationsComponent,
-    UserCardsComponent
+    UserCardsComponent,
+    MyCardComponent
   ],
   imports: [
     BrowserModule,

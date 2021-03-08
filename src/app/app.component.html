@@ -17,6 +17,7 @@
     </button>
     <div class="dropdown-content">
       <a *ngIf="!auth.isAdmin()" style="cursor: pointer;" routerLink="/my-applications"><i class="fa fa-telegram"></i> My applications</a>
+      <a *ngIf="!auth.isAdmin()" style="cursor: pointer;" routerLink="/my-card"><i class="fa fa-address-card"></i> My card</a>
       <a style="cursor: pointer;" routerLink="/profile"><i class="fa fa-user"></i> My profile</a>
       <a style="cursor: pointer;" (click)="auth.logout()"><i class="fa fa-sign-out"></i> Logout</a>
     </div>
