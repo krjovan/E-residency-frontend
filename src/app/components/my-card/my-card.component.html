@@ -1,4 +1,23 @@
-<div class="credit-card-wrap">
+<div id="id03" class="modal">
+  <span onclick="document.getElementById('id03').style.display='none'" class="close" title="Close Modal">×</span>
+  <form class="modal-content">
+    <div class="container">
+      <h1>Deactivate card</h1>
+      <p>Are you sure you want to deactivate your e-residency card?</p>
+
+      <div class="clearfix">
+        <button type="button" onclick="document.getElementById('id03').style.display='none'" class="cancelbtn">No</button>
+        <button type="button" (click)="deactivate()" class="deletebtn">Yes</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="!isLoaded" class="loader"></div>
+<div *ngIf="isLoaded" class="w3-center w3-container">
+  <h2>Your e-residency card is <span style="color: green" *ngIf="myCardInfo.card.active">ACTIVE</span><span style="color: red" *ngIf="!myCardInfo.card.active">INACTIVE</span></h2>
+</div>
+<div *ngIf="isLoaded" class="credit-card-wrap">
   <div class="mk-icon-world-map"></div>
   <div class="credit-card-inner">
     <header class="header">
@@ -11,20 +30,26 @@
     </header>
     <div style="float: left;" class="mk-icon-sim">
     </div>
-    <div style="margin-top: 16px;" class="credit-font credit-card-number">Anna Timotihi Weber</div>
-    <div class="credit-font credit-card-number">Personal code: 4716 6109 5211 3010</div>
-    <div class="credit-font credit-card-number">Card code: 4716 6109 5211 3010</div>
+    <div style="margin-top: 16px; font-size: 25px;" class="credit-font credit-card-number">{{myCardInfo.details.given_name}} {{myCardInfo.details.surname}}</div>
+    <div class="credit-font credit-card-number">Personal code: {{myCardInfo.details.personal_identification_code}}</div>
+    <div class="credit-font credit-card-number">Card code: {{myCardInfo.card.card_code}}</div>
     <footer class="footer">
       <div class="clearfix">
         <div class="pull-right">
           <div class="credit-card-date">
             <span class="title">Expires on</span>
-            <span class="credit-font">01.12.2021.</span>
+            <span class="credit-font">{{myCardInfo.card.expire_date | date: 'dd.MM.yyyy.'}}</span>
           </div>
         </div>
-        <!--<div class="pull-right">
-        </div>-->
       </div>
     </footer>
   </div>
+</div>
+
+<div *ngIf="isLoaded && myCardInfo.card.active" class="w3-center w3-container">
+  <h2>You can deactivate your e-residency card by clicking on the button <button onclick="document.getElementById('id03').style.display='block'"  class="w3-button w3-red">DEACTIVATE</button> </h2>
+</div>
+
+<div *ngIf="isLoaded" class="w3-center w3-container">
+  <h3><b>NOTE:</b> To reactivate your card you must contact our e-residency team</h3>
 </div>

@@ -16,6 +16,10 @@ export class CardService {
     return this.httpClient.get<Card[]>(this.API_URL + '/all');
   }
 
+  public getUserCard(id: String): Observable<any> {
+    return this.httpClient.get<any>(this.API_URL + '/my-card?user_id=' + id);
+  }
+
   public updateCard(id: String, act: Boolean): Observable<any> {
     let req = { active: act.toString() };
     return this.httpClient.put(this.API_URL + '/update/' + id, req);
