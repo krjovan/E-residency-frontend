@@ -145,25 +145,37 @@
   </button>
 </div>
 
-<div>
-  <div class="row">
-    <div class="column w3-card w3-hover-blue" *ngFor="let location of locations">
-      <h3 style="text-align: center">{{location.country}}</h3>
-      <p style="text-align: center">{{location.city}}</p>
-      <p style="text-align: center">{{location.street}}</p>
-      <p style="text-align: center">{{location.street_number}}</p>
-      <p style="text-align: center">{{location.contact_email}}</p>
-      <div class="w3-center w3-padding">
-        <button style="margin-right: 5pt" class="w3-button w3-black" (click)="selectlocation(2, location)">
-          <i class="fa fa-edit"></i>
-        </button>
-        <button class="w3-button w3-red" (click)="selectlocation(3, location)">
-          <i class="fa fa-trash-o"></i>
-        </button>
-      </div>
-    </div>
-  </div>
+
+
+
+<div style="overflow-x:auto;" class="w3-padding w3-container">
+    <table style="margin-bottom: 1vw;" class="w3-table-all w3-card-4" id="applications">
+        <tr class="w3-blue">
+          <th class="w3-center">Country</th>
+          <th class="w3-center">City</th>
+          <th class="w3-center">Street</th>
+          <th class="w3-center">Street number</th>
+          <th class="w3-center">Contact email</th>
+          <th class="w3-center">Actions</th>
+        </tr>
+        <tr *ngFor="let location of locations">
+          <td class="w3-center">{{location.country}}</td>
+          <td class="w3-center">{{location.city}}</td>
+          <td class="w3-center">{{location.street}}</td>
+          <td class="w3-center">{{location.street_number}}</td>
+          <td class="w3-center">{{location.contact_email}}</td>
+          <td class="w3-center">
+              <button style="margin-right: 5pt" class="w3-button w3-black" (click)="selectlocation(2, location)">
+                  <i class="fa fa-edit"></i>
+                </button>
+                <button class="w3-button w3-red" (click)="selectlocation(3, location)">
+                  <i class="fa fa-trash-o"></i>
+                </button>
+          </td>
+        </tr>
+      </table>
 </div>
+
 
 <div *ngIf="search===''" class="w3-center w3-padding">
   <div class="w3-bar w3-border w3-round">

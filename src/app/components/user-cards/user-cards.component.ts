@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 export class UserCardsComponent implements OnInit {
 
   cards: Card [] = [];
+  search = '';
 
   constructor(private cardService: CardService,
               private toastr: ToastrService) { }

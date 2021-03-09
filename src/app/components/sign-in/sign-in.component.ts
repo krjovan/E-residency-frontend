@@ -21,7 +21,12 @@ export class SignInComponent implements OnInit {
 
   login() {
     this.auth.login(this.credentials).subscribe(() => {
-      this.router.navigateByUrl('/profile');
+      if (this.auth.getUserDetails().role === 'user') {
+        this.router.navigateByUrl('/my-applications');
+      }
+      else if (this.auth.getUserDetails().role === 'admin') {
+        this.router.navigateByUrl('/applications');
+      }
       this.toastr.success('You successfully signed-in!', 'Welcome ' + this.auth.getUserDetails().name);
     }, (err) => {
       this.toastr.error('Check email and password fields!', 'Error');

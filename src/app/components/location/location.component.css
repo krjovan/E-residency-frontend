@@ -1,15 +1,26 @@
-.column {
-  float: left;
-  width: 24%;
-  margin: 3pt;
+#applications {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-/* Clear floats after the columns */
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
+#applications td, #applications th {
+  border: 1px solid #ddd;
+  padding: 8px;
 }
+
+#applications tr:nth-child(even){background-color: #f2f2f2;}
+
+#applications tr:hover {background-color: #ddd;}
+
+#applications th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: white;
+}
+
 
 
 .search-containter button {

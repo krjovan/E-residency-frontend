@@ -54,10 +54,10 @@ export class LocationComponent implements OnInit {
 
   addLocation() {
     this.locationService.addLocation(this.location).subscribe(() => {
+      this.getLocations();
       this.toastr.success('You successfully added a location!', 'Success');
       document.getElementById('id01').style.display = 'none'
       this.clearDialog();
-      this.getLocations();
     }, (err) => {
       this.toastr.error(err.error.message, 'Error');
     });
@@ -77,15 +77,9 @@ export class LocationComponent implements OnInit {
   deletelocation() {
     this.locationService.deleteLocation(this.selectedLocation._id)
       .subscribe(data => {
+        this.getLocations();
         document.getElementById('id03').style.display = 'none';
         this.toastr.success('You successfully deleted this location!', 'Success');
-        if (data.n == 1) {
-          for (var i = 0; i < this.locations.length; i++) {
-            if (this.selectedLocation._id == this.locations[i]._id) {
-              this.locations.splice(i, 1);
-            }
-          }
-        }
       }, (err) => {
         this.toastr.error(err.error.message, 'Error');
       });
