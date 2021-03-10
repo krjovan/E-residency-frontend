@@ -12,27 +12,36 @@ export class MyCardComponent implements OnInit {
 
   myCardInfo: any;
   isLoaded: Boolean = false;
+  hasCard: Boolean = false;
 
   constructor(private cardService: CardService,
               private auth: AuthenticationService,
               private toastr: ToastrService) { }
 
   getMyCard() {
+    this.hasCard = false;
     this.isLoaded = false;
     this.cardService.getUserCard(this.auth.getUserDetails()._id).subscribe({
       next: myCardInfo => {
-        console.log(myCardInfo);
-        this.myCardInfo = myCardInfo;
-        if (myCardInfo.card.expire_date < new Date()) {
-          this.cardService.updateCard(this.myCardInfo.card._id,false).subscribe({
-            next: res => {
-              this.getMyCard();
-            }, error: err => {
-              console.log(err);
-            }
-          });
+        if(myCardInfo && Object.keys(myCardInfo).length === 0 && myCardInfo.constructor === Object) {
+          this.isLoaded = true;
+          this.toastr.error("You dont't have a e-residency card!", 'Error');
+        } else {
+          this.myCardInfo = myCardInfo;
+          this.hasCard = true;
+          this.isLoaded = true;
+
+          if (myCardInfo.card.expire_date < new Date()) {
+            this.cardService.updateCard(this.myCardInfo.card._id,false).subscribe({
+              next: res => {
+                this.getMyCard();
+              }, error: err => {
+                console.log(err);
+              }
+            });
+          }
         }
-        this.isLoaded = true;
+
       }, error: err => {
         console.log(err);
       }

@@ -36,6 +36,9 @@ export class MyApplicationsComponent implements OnInit {
 
   statuses: any [] = [];
 
+  isLoaded: Boolean = false;
+  hasApplications: Boolean = false;
+
 
   constructor(private applicationService: ApplicationService,
               private detailsService: DetailsService,
@@ -63,7 +66,13 @@ export class MyApplicationsComponent implements OnInit {
   ngOnInit(): void {
     this.applicationService.getUserApplications().subscribe({
       next: userApplications => {
-        this.myApplications = userApplications;
+        if (userApplications.length === 0) {
+          this.isLoaded = true;
+        } else {
+          this.myApplications = userApplications;
+          this.hasApplications = true;
+          this.isLoaded = true;
+        }
       }, error: err => {
         console.log(err);
       }

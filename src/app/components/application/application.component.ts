@@ -9,6 +9,7 @@ import { Location } from '../../models/location';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DetailsService } from '../../services/details-service/details.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-application',
@@ -45,7 +46,8 @@ export class ApplicationComponent implements OnInit {
     private auth: AuthenticationService,
     private locationService: LocationService,
     private formBuilder: FormBuilder,
-    private detailsService: DetailsService
+    private detailsService: DetailsService,
+    private router: Router
   ) { }
 
   addApplication() {
@@ -74,6 +76,7 @@ export class ApplicationComponent implements OnInit {
             this.toastr.success('You successfully sent your application!', 'Success');
             this.uploadFileInput.nativeElement.value = "";
             this.fileInputLabel = undefined;
+            this.router.navigateByUrl('/my-applications');
           }, error: err => {
             console.log(err);
           }
