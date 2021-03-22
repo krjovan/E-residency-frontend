@@ -16,6 +16,10 @@ export class CardService {
     return this.httpClient.get<Card[]>(this.API_URL + '/all');
   }
 
+  public getCurrentCards(): Observable<any[]> {
+    return this.httpClient.get<any[]>(this.API_URL + '/allCurrent');
+  }
+
   public getUserCard(id: String): Observable<any> {
     return this.httpClient.get<any>(this.API_URL + '/my-card?user_id=' + id);
   }

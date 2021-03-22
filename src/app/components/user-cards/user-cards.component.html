@@ -8,10 +8,10 @@
 <div>
   <div class="row">
     <div class="column w3-card w3-blue w3-hover-white" *ngFor="let card of cards">
+      <p style="text-align: center"><b>Name:</b> {{card.user.name}}</p>
       <p style="text-align: center"><b>Card code:</b> {{card.card_code}}</p>
       <p style="text-align: center"><b>Issue date:</b> {{card.issue_date | date: 'dd.MM.yyyy.'}}</p>
       <p style="text-align: center"><b>Expire date:</b> {{card.expire_date | date: 'dd.MM.yyyy.'}}</p>
-      <p style="text-align: center">{{card.active}}</p>
       <div class="w3-center w3-padding">
         <button *ngIf="!card.active" style="margin-right: 5pt" class="w3-button w3-green" (click)="changeCardState(1, card)">
           REACTIVATE

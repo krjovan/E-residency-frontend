@@ -10,16 +10,17 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UserCardsComponent implements OnInit {
 
-  cards: Card [] = [];
+  cards: any [] = [];
   search = '';
 
   constructor(private cardService: CardService,
               private toastr: ToastrService) { }
 
   getAll() {
-    this.cardService.getCards().subscribe({
+    this.cardService.getCurrentCards().subscribe({
       next: cards => {
-        this.cards = cards;
+        cards.reverse();
+        this.cards = cards.filter((thing, i, arr) => arr.findIndex(t => t.user_id === thing.user_id) === i);
       },
       error: err => {
         console.log(err);
@@ -27,7 +28,7 @@ export class UserCardsComponent implements OnInit {
     });
   }
 
-  changeCardState(option: number, card: Card) {
+  changeCardState(option: number, card: any) {
     if (option === 2) {
       this.cardService.updateCard(card._id, false).subscribe({
         next: res => {
